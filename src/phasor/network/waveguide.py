@@ -6,10 +6,11 @@ if TYPE_CHECKING:
     from phasor.network.port import Port
     from phasor.physics.optical_field import OpticalField
 
+
 class Waveguide:
-    '''
+    """
     Carries the optical field between a source port and destination port.
-    '''
+    """
 
     def __init__(self, source: Port, destination: Port):
         self._source = source
@@ -33,7 +34,4 @@ class Waveguide:
         self._field = field
 
     def __repr__(self) -> str:
-        return (
-            f"Waveguide(source={self.source}, "
-            f"destination={self.destination})"
-        )
+        return f"Waveguide(source={self.source}, destination={self.destination})"

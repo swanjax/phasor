@@ -1,23 +1,27 @@
 from __future__ import annotations
+
 from abc import ABC
 from uuid import UUID, uuid4
 
 from phasor.network.port import Port
 from phasor.network.port_direction import PortDirection
 
+
 class Component(ABC):
-    '''
+    """
     Base class for every physical component.
-    '''
+    """
+
     def __init__(
-        self,
-        port_directions: tuple[PortDirection, ...],
-        name: str | None = None
+        self, port_directions: tuple[PortDirection, ...], name: str | None = None
     ):
         self._id: UUID = uuid4()
-        self._name = name if name is not None else f"{self.__class__.__name__}_{self.id.hex[:8]}"
+        self._name = (
+            name if name is not None else f"{self.__class__.__name__}_{self.id.hex[:8]}"
+        )
         self._ports = tuple(
-            Port(self, index, direction) for index, direction in enumerate(port_directions)
+            Port(self, index, direction)
+            for index, direction in enumerate(port_directions)
         )
 
     @property

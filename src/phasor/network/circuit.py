@@ -2,13 +2,14 @@ from __future__ import annotations
 
 from phasor.components.component import Component
 from phasor.network.port import Port
-from phasor.network.waveguide import Waveguide
 from phasor.network.port_direction import PortDirection
+from phasor.network.waveguide import Waveguide
+
 
 class Circuit:
-    '''
+    """
     Represent a photonic circuit as a graph of component connected by waveguides.
-    '''
+    """
 
     def __init__(self):
         self._components: list[Component] = []

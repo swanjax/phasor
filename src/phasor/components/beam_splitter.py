@@ -7,28 +7,22 @@ from phasor.physics.optical_field import OpticalField
 
 
 class BeamSplitter(Component):
-    '''
+    """
     Splits beam from 2 inputs to 2 outputs, while conserving total power.
-    '''
+    """
 
-    def __init__(
-        self,
-        reflectivity: float = 0.5,
-        name: str | None = None
-    ):
+    def __init__(self, reflectivity: float = 0.5, name: str | None = None):
         super().__init__(
             port_directions=(
                 PortDirection.INPUT,
                 PortDirection.INPUT,
                 PortDirection.OUTPUT,
-                PortDirection.OUTPUT
+                PortDirection.OUTPUT,
             ),
-            name=name
+            name=name,
         )
         if not 0.0 <= reflectivity <= 1.0:
-            raise ValueError(
-                "Reflectivity must be between 0 and 1."
-            )
+            raise ValueError("Reflectivity must be between 0 and 1.")
         self._reflectivity = reflectivity
 
     @property
@@ -52,12 +46,10 @@ class BeamSplitter(Component):
         return self._reflectivity
 
     def transform(
-        self,
-        upper_field: OpticalField,
-        lower_field: OpticalField
+        self, upper_field: OpticalField, lower_field: OpticalField
     ) -> tuple[OpticalField, OpticalField]:
         r = sqrt(self._reflectivity)
         t = sqrt(1 - self._reflectivity)
-        out1 = (t * upper_field + 1j * r * lower_field)
-        out2 = (1j * r * upper_field + t * lower_field)
+        out1 = t * upper_field + 1j * r * lower_field
+        out2 = 1j * r * upper_field + t * lower_field
         return (out1, out2)

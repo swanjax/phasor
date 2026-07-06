@@ -1,42 +1,43 @@
 from __future__ import annotations
-from gettext import install
-from numbers import Number
+
 import cmath
+from numbers import Number
+
 
 class OpticalField:
-    '''
+    """
     Represent a coherent optical field.
     Stored as a complex number:  E = A * exp(i * phi)
     Where,
         A: Amplitude
         phi: Phase
-    '''
+    """
 
     def __init__(self, field: complex):
         self._field = complex(field)
 
     @property
     def field(self) -> complex:
-        '''Read-only access to field.'''
+        """Read-only access to field."""
         return self._field
 
     @property
     def phase(self) -> float:
-        '''Read-only access to phase in radians.'''
+        """Read-only access to phase in radians."""
         return cmath.phase(self._field)
 
     @property
     def amplitude(self) -> float:
-        '''Field Amplitude'''
+        """Field Amplitude"""
         return abs(self._field)
 
     @property
     def intensity(self) -> float:
-        '''Optical intensity proportional to |E|^2'''
-        return abs(self._field)**2
+        """Optical intensity proportional to |E|^2"""
+        return abs(self._field) ** 2
 
     def phase_shift(self, phi: float) -> OpticalField:
-        '''Return a new field with an added phase shift.'''
+        """Return a new field with an added phase shift."""
         return OpticalField(self._field * cmath.exp(1j * phi))
 
     def __add__(self, other: OpticalField) -> OpticalField:
@@ -65,12 +66,7 @@ class OpticalField:
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, OpticalField):
             return NotImplemented
-        return cmath.isclose(
-            self._field,
-            other._field,
-            rel_tol=1e-12,
-            abs_tol=1e-12
-        )
+        return cmath.isclose(self._field, other._field, rel_tol=1e-12, abs_tol=1e-12)
 
     def __repr__(self) -> str:
         return f"OpticalField({self._field})"

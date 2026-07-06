@@ -8,16 +8,13 @@ if TYPE_CHECKING:
     from phasor.components.component import Component
     from phasor.network.waveguide import Waveguide
 
+
 class Port:
-    '''
+    """
     Connection point on a component.
-    '''
-    def __init__(
-        self,
-        component: Component,
-        index: int,
-        direction: PortDirection
-    ):
+    """
+
+    def __init__(self, component: Component, index: int, direction: PortDirection):
         self._component = component
         self._index = index
         self._direction = direction
