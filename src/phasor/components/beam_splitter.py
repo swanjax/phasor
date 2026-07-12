@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from cmath import sqrt
 
 from phasor.components.component import Component
@@ -53,3 +55,6 @@ class BeamSplitter(Component):
         out1 = t * upper_field + 1j * r * lower_field
         out2 = 1j * r * upper_field + t * lower_field
         return (out1, out2)
+
+    def clone(self) -> BeamSplitter:
+        return BeamSplitter(reflectivity=self.reflectivity)

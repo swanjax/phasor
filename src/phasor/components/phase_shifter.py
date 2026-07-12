@@ -34,3 +34,8 @@ class PhaseShifter(Component):
         Apply the configured phase shift.
         """
         return field.phase_shift(self.phi)
+
+    def clone(self) -> PhaseShifter:
+        return PhaseShifter(
+            phi=self.phi,
+        )

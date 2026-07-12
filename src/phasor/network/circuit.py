@@ -23,9 +23,13 @@ class Circuit:
     def waveguides(self) -> tuple[Waveguide, ...]:
         return tuple(self._waveguides)
 
+    def add_components(self, *components) -> None:
+        for component in components:
+            self.add_component(component)
+
     def add_component(self, component: Component) -> None:
         if component in self._components:
-            raise ValueError("Component already exists in circuit.")
+            raise ValueError(f"{component} already exists in circuit.")
         self._components.append(component)
 
     def connect(self, source: Port, destination: Port) -> Waveguide:
@@ -50,3 +54,43 @@ class Circuit:
         self._waveguides.append(waveguide)
 
         return waveguide
+
+    def _flatten_into(
+        self, flat: Circuit, clone_map: dict[Component, Component]
+    ) -> None:
+        from phasor.components.composite_component import CompositeComponent
+
+        def resolve(port: Port):
+            component = port.component
+            if isinstance(component, CompositeComponent):
+                internal_port = component.port_map[port]
+                return resolve(internal_port)
+            else:
+                return port
+
+        for comp in self._components:
+            if isinstance(comp, CompositeComponent):
+                comp.sub_circuit._flatten_into(flat, clone_map)
+            else:
+                clone = comp.clone()
+                flat.add_component(clone)
+                clone_map[comp] = clone
+
+        for wg in self.waveguides:
+            src = wg.source
+            p_src = resolve(src)
+            c_s = clone_map[p_src.component]
+            new_src = c_s.ports[p_src.index]
+
+            dst = wg.destination
+            p_dst = resolve(dst)
+            c_d = clone_map[p_dst.component]
+            new_dst = c_d.ports[p_dst.index]
+
+            flat.connect(source=new_src, destination=new_dst)
+
+    def flatten(self) -> Circuit:
+        flat = Circuit()
+        clone_map = {}
+        self._flatten_into(flat, clone_map)
+        return flat
