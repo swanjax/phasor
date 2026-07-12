@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from abc import ABC
+from abc import ABC, abstractmethod
 from uuid import UUID, uuid4
 
 from phasor.network.port import Port
@@ -51,3 +51,7 @@ class Component(ABC):
             if port.direction is PortDirection.OUTPUT:
                 out_ports.append(port)
         return tuple(out_ports)
+
+    @abstractmethod
+    def clone(self) -> Component:
+        pass

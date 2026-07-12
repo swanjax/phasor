@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from phasor.components.component import Component
 from phasor.network.port import Port
 from phasor.network.port_direction import PortDirection
@@ -24,3 +26,6 @@ class Detector(Component):
         Measure the intensity of optical field.
         """
         return field.intensity
+
+    def clone(self) -> Detector:
+        return Detector()

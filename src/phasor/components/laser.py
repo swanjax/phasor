@@ -28,3 +28,8 @@ class Laser(Component):
         Emit the laser's optical field.
         """
         return self.field
+
+    def clone(self) -> Laser:
+        return Laser(
+            field=self.field,
+        )
