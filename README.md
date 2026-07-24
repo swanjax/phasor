@@ -47,10 +47,10 @@ circuit.connect(
 
 # Simulate the circuit
 simulator = ph.Simulator(circuit)
-simulator.run()
+results = simulator.run()
 
 # Inspect the detector output
-print(detector.detect())
+print(results)
 ```
 This example demonstrates a typical workflow when using Phasor:
 1. Create an `OpticalField`.
