@@ -40,10 +40,7 @@ detector = ph.Detector()
 # Assemble the circuit
 circuit = ph.Circuit()
 circuit.add_components(laser, detector)
-circuit.connect(
-    laser.output_port,
-    detector.input_port
-)
+circuit.connect(laser.output_port, detector.input_port)
 
 # Simulate the circuit
 simulator = ph.Simulator(circuit)

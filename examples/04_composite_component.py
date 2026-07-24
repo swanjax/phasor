@@ -28,12 +28,10 @@ class SinglePhase(ph.CompositeComponent):
         self._phi = phi
         phase = ph.PhaseShifter(phi)
         self.sub_circuit.add_component(phase)
-        self.set_port_map(
-            {
-                self.input_port: phase.input_port,
-                self.output_port: phase.output_port,
-            }
-        )
+        self.set_port_map({
+            self.input_port: phase.input_port,
+            self.output_port: phase.output_port,
+        })
 
     @property
     def input_port(self):
