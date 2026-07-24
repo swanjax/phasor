@@ -17,12 +17,10 @@ class SinglePhase(CompositeComponent):
         phase = PhaseShifter(phi)
 
         self.sub_circuit.add_component(phase)
-        self.set_port_map(
-            {
-                self.input_ports[0]: phase.input_port,
-                self.output_ports[0]: phase.output_port,
-            }
-        )
+        self.set_port_map({
+            self.input_ports[0]: phase.input_port,
+            self.output_ports[0]: phase.output_port,
+        })
 
     @property
     def input_port(self):
@@ -106,12 +104,10 @@ class DoublePhase(CompositeComponent):
 
         self.sub_circuit.connect(phase1.output_port, phase2.input_port)
 
-        self.set_port_map(
-            {
-                self.input_ports[0]: phase1.input_port,
-                self.output_ports[0]: phase2.output_port,
-            }
-        )
+        self.set_port_map({
+            self.input_ports[0]: phase1.input_port,
+            self.output_ports[0]: phase2.output_port,
+        })
 
     def clone(self):
         return DoublePhase(self.phi1, self.phi2)

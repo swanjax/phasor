@@ -7,6 +7,11 @@ from phasor.network.port_direction import PortDirection
 
 
 class CompositeComponent(Component, ABC):
+    """
+    A reusable component composed of one or more interconnnected supcomponents.
+    Before simulation, a circuit with composite components must be flattened.
+    """
+
     def __init__(
         self, port_directions: tuple[PortDirection, ...], name: str | None = None
     ):
