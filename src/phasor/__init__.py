@@ -4,6 +4,7 @@ from phasor.components.detector import Detector
 from phasor.components.laser import Laser
 from phasor.components.phase_shifter import PhaseShifter
 from phasor.network.circuit import Circuit
+from phasor.physics.optical_field import OpticalField
 from phasor.simulation.simulator import Simulator
 
 __all__ = [
@@ -14,4 +15,5 @@ __all__ = [
     "PhaseShifter",
     "Simulator",
     "CompositeComponent",
+    "OpticalField",
 ]

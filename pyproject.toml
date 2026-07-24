@@ -5,13 +5,24 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "phasor"
 version = "0.1.0"
-description = "A Python library for simulating photonic circuits."
+description = "A Python library for building and simulating photonic circuits."
 readme = "README.md"
 requires-python = ">=3.12"
-license = "MIT"
+license = { text = "MIT" }
+
 authors = [
     { name = "Sarthak Wanjari" }
 ]
+
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Typing :: Typed",
+]
+
 dependencies = [
     "numpy>=2.0",
 ]
@@ -24,7 +35,7 @@ dev = [
 ]
 
 [tool.setuptools]
-package-dir = {"" = "src"}
+package-dir = { "" = "src" }
 
 [tool.setuptools.packages.find]
 where = ["src"]
